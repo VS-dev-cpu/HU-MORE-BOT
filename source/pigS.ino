@@ -84,11 +84,15 @@ void loop() {
       break;
 
     case 20:  //Dance
-      right(500);
-      left(500);
-      forward(500);
-      backward(500);
-      brake();
+      for (int i = 0; i < 5; i++)
+      {
+        right(500);
+        left(500);
+        forward(500);
+        backward(500);
+        brake();
+      }
+      
       break;
 
     case 30:  //Object
