@@ -3,6 +3,9 @@
 # The Communication Diagram
 ![tfwrs](images/tfwrs.png "")
 
+# Robot S's Schematic
+![tfwrs](images/schematic.png "")
+
 # How To Install
 
 ## Install opencv
