@@ -8,7 +8,7 @@ class BT():
         
         self.mac_rpi0_samu = "B8:27:EB:48:52:95"    #RPI0
         self.mac_rpi4_samu = "DC:A6:32:6B:3A:AB"    #RPI2
-        self.mac_rpi4_zeti = ""    #RPI3
+        self.mac_rpi3_zeti = ""    #RPI3
         self.mac_rpi3_mate = "B8:27:EB:10:0D:19"    #RPI4
         
     def receive(self):
