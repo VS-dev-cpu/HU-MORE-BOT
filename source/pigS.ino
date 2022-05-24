@@ -1,8 +1,8 @@
 #include <Adafruit_MotorShield.h>
 
 Adafruit_MotorShield AFMS = Adafruit_MotorShield();
-Adafruit_DCMotor *left_m = AFMS.getMotor(0);
-Adafruit_DCMotor *right_m = AFMS.getMotor(1);
+Adafruit_DCMotor *left_m = AFMS.getMotor(1);
+Adafruit_DCMotor *right_m = AFMS.getMotor(2);
 
 int speed_a = 150;
 int speed_b = 100;
