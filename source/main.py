@@ -1,34 +1,30 @@
-# Libs for Unix time
+# Konnichiwa!
+
+# Importing the libs
+
 from datetime import datetime
 import calendar
+import time
 
-# Libs for "Serial"
 import os
 
-# Libs for GPIO
 from gpiozero import Button
 
-# Libs for OpenCV
 import cv2
 import numpy as np
 
-# Libs for BT
 import bt
 
-# Setup for Unix Time
+# Setup for like... everything... I guess...
 def unix():
 	d = datetime.utcnow()
 	return calendar.timegm(d.utctimetuple())
 
-# Setup for "Serial"
 def send(data):
     os.system("echo '" + str(data) + "\\n' >> /dev/ttyS0")
 
-# Setup for GPIO
 #button = Button(26)
 sensor = Button(19)
-
-# Setup for OpenCV
 
 W = 320
 H = 240
@@ -50,17 +46,12 @@ high_acorn = np.array([179, 255, 255])
 W = cap.get(3)
 H = cap.get(4)
 
-acorn = False
-acornX = 0
-acornY = 0
-acornSize = 0
-acornDist = 0
+size = 0
 gap = 2.5
-minacornSize = 150
+minSize = 150
 
 debugging = False
 
-# Setup for BT
 bt = bt.BT()
 
 ### SERVER ONLY CODE ###
@@ -70,9 +61,6 @@ bt = bt.BT()
 #bt.start()
 
 bt.sync()
-
-# Setup base things
-import time
 
 send(10)
 time.sleep(3)
@@ -97,7 +85,7 @@ while True:
 	if (unix() - start > duration):
 		break;
 		
-	# Detect objects and avoid hitting them
+	# Go around an object, if you see it
 	if not sensor.is_pressed:
 		send(30)
 		time.sleep(5)
@@ -108,46 +96,34 @@ while True:
 	if (IMAGE_FLIP_HORIZONTALLY):
 		frame = cv2.flip(frame, 1)
         
-	#Create masks and find the objects
-        
+	# OpenCV Stuff
 	hsv_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
-
-	acorn_mask = cv2.inRange(hsv_frame, low_acorn, high_acorn)
-	acorn_contours, _ = cv2.findContours(acorn_mask, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
-	acorn_contours = sorted(acorn_contours, key=lambda x:cv2.contourArea(x), reverse=True)
+	mask = cv2.inRange(hsv_frame, low, high)
+	contours, _ = cv2.findContours(mask, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
+	contours = sorted(contours, key=lambda x:cv2.contourArea(x), reverse=True)
    
-	acornX = W / 2
-	acornY = H / 2
-	acornSize = 0
-	acornDist = 0
-	acorn = False
-    
-	for cnt in acorn_contours:
+	# Getting The Acorn's size
+	size = 0
+	for cnt in contours:
 		(x, y, w, h) = cv2.boundingRect(cnt)
-        
-		acornX = int((x + x + w) / 2)
-		acornY = int((y + y + h) / 2)
-		acornSize = int((w + h) / 2)
-		acornDist = int(-acornSize + w)
-		acorn = True
+       
+		size = int((w + h) / 2)
 		break
     
+	# The EXIT stuff is happening here
 	key = cv2.waitKey(1)
-    
-	# Exit, if needed
-    
-	if key == 27:
-		break
-    
-	if (acorn and acornSize > minacornSize):
+	if (size > minSize or key == 27):
 		break
 	else:
 		send(3)
-		
 	time.sleep(speedLimit)
     
+# And The Final Dance
 send(0)
 send(20)
 
+# After that, please destroy the windows and release the cap, because I won't need them anymore...
+# And also quit from the program, because it uses quite a lot memory...
 cap.release()
 cv2.destroyAllWindows()
+# Oyasumi!
