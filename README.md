@@ -3,7 +3,7 @@
 # The Communication Diagram
 ![tfwrs](images/tfwrs.png "")
 
-# Robot S's Schematic
+# Robot S's Schematic (Simplified)
 ![tfwrs](images/schematic.png "")
 
 # How To Install
