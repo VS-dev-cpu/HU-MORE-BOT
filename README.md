@@ -1,4 +1,4 @@
-# Everything I use
+# Everything I use (Pig and Piglet is the same for me...)
 
 # The Communication Diagram (TFWRS for short)
 ![tfwrs](images/tfwrs.png "")
