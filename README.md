@@ -1,6 +1,6 @@
 # Everything I use
 
-# The Communication Diagram
+# The Communication Diagram (TFWRS for short)
 ![tfwrs](images/tfwrs.png "")
 
 # Robot S's Schematic (Simplified)
