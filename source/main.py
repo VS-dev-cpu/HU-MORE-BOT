@@ -80,6 +80,9 @@ time.sleep(3)
 start = unix()
 duration = 60
 
+#Limit Speed, To Avoid Message-Overflow (Between the RPi and Arduino) [Default: 0.05]
+speedLimit = 0.05
+
 # Main Loop
 
 while True:
@@ -140,6 +143,8 @@ while True:
 		break
 	else:
 		send(3)
+		
+	time.sleep(speedLimit)
     
 send(0)
 send(20)
