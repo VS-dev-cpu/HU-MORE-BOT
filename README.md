@@ -3,7 +3,7 @@
 # The Communication Diagram (TFWRS for short)
 ![tfwrs](images/tfwrs.png "")
 
-# Robot S's Schematic (Simplified)
+# PigS's Schematic (Simplified)
 ![tfwrs](images/schematic.png "")
 
 # How To Install
