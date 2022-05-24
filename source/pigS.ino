@@ -57,8 +57,20 @@ void setup() {
 void loop() {
   switch (Serial.parseInt())
   {
+    case 1: //Right
+      right(0);
+      break;
+
+    case 2: //Left
+      left(0);
+      break;
+
     case 3: //Forward
       forward(0);
+      break;
+
+    case 4: //Forward
+      backward(0);
       break;
 
     case 10:  //Out of the house
