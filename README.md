@@ -1,4 +1,4 @@
-# HU-MORE-BOT Everything
+# Everything I use
 
 # The Communication Diagram
 ![tfwrs](images/tfwrs.png "")
