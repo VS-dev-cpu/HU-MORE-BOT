@@ -55,7 +55,6 @@ H = cap.get(4)
 
 bt = bt.BT()
 
-
 if is_server:
 	from gpiozero import Button
 	button = Button(26)
