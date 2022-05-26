@@ -4,8 +4,9 @@ Adafruit_MotorShield AFMS = Adafruit_MotorShield();
 Adafruit_DCMotor *left_m = AFMS.getMotor(1);
 Adafruit_DCMotor *right_m = AFMS.getMotor(2);
 
-int speed_a = 150;
+int speed_a = 100;
 int speed_b = 100;
+int turn = 500;
 
 void forward(int t)
 {
@@ -75,11 +76,7 @@ void loop() {
 
     case 10:  //Out of the house
       forward(1000);
-      right(700);
-      forward(1000);
-      right(700);
-      forward(1000);
-      left(700);
+      right(turn);
       brake();
       break;
 
@@ -96,13 +93,13 @@ void loop() {
       break;
 
     case 30:  //Object
-      left(700);
+      left(turn);
       forward(1000);
-      right(700);
-      forward(2000);
-      right(700);
+      right(turn);
       forward(1000);
-      left(700);
+      right(turn);
+      forward(1000);
+      left(turn);
       brake();
       break;
   }
