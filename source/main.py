@@ -1,5 +1,7 @@
 # Konnichiwa!
 
+import numpy as np
+
 # ---------- CONFIGURATION ----------
 
 # Only for PigS (server/host)
@@ -41,7 +43,6 @@ import os
 from gpiozero import Button
 
 import cv2
-import numpy as np
 
 import bt
 
@@ -67,7 +68,7 @@ if (IMAGE_RESIZE):
     cap.set(3, int(W))
     cap.set(4, int(H))
 	
-if (IMAGE_RESIZE and (W != W = cap.get(3) or H != H = cap.get(4))):
+if (IMAGE_RESIZE and (W != cap.get(3) or H != cap.get(4))):
 	print("CAMFAULT: CAN'T RESIZE IMAGE!")
 
 W = cap.get(3)
@@ -96,7 +97,7 @@ while True:
 		break;
 		
 	# Go around an object, if you see it
-	if not sensor.is_pressed:
+	if sensor.is_pressed:
 		send(30)
 		time.sleep(8)
         
@@ -124,6 +125,9 @@ while True:
 			print("CAMFAULT: CAN'T READ FROM THE CAMERA!")
 			panic = True
     
+	if debugging:
+		cv2.imshow("frame", frame)
+	
 	# The EXIT stuff is happening here
 	key = cv2.waitKey(1)
 	if (size > minSize or key == 27):
