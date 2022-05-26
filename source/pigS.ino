@@ -8,6 +8,8 @@ int speed_a = 100;
 int speed_b = 100;
 int turn = 500;
 
+int sensor = 12;
+
 void forward(int t)
 {
   left_m->setSpeed(speed_a);
@@ -52,55 +54,57 @@ void brake()
 
 void setup() {
   AFMS.begin();
+  pinMode(sensor, INPUT);
   brake();
 }
+
+int state = 0;
 
 void loop() {
   switch (Serial.parseInt())
   {
-    case 1: //Right
-      right(0);
-      break;
-
-    case 2: //Left
-      left(0);
-      break;
-
-    case 3: //Forward
+    case 1:
+       state = 1;
+       break;
+      
+    case 2:
+      state = 2;
+      
+    default:
+       break;
+  }
+  
+  switch(state)
+  {
+    case 1:
       forward(0);
+      if (digitalRead(sensor))
+      {
+        left(turn);
+        forward(1000);
+        right(turn);
+        forward(1000);
+        right(turn);
+        forward(1000);
+        left(turn);
+      }
       break;
-
-    case 4: //Forward
-      backward(0);
-      break;
-
-    case 10:  //Out of the house
-      forward(1000);
-      right(turn);
-      brake();
-      break;
-
-    case 20:  //Dance
+      
+    case 2:
       for (int i = 0; i < 5; i++)
       {
         right(500);
         left(500);
         forward(500);
         backward(500);
-        brake();
+        
+        left(500);
+        right(500);
+        backward(500);
+        forward(500);
       }
-      
       break;
-
-    case 30:  //Object
-      left(turn);
-      forward(1000);
-      right(turn);
-      forward(1000);
-      right(turn);
-      forward(1000);
-      left(turn);
-      brake();
+    default:
       break;
   }
 }
