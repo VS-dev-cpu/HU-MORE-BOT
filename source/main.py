@@ -85,7 +85,7 @@ else:
 	
 start = unix()
 send(10)
-time.sleep(3)
+time.sleep(6)
 
 while True:
 	# Read image from the camera
@@ -98,7 +98,7 @@ while True:
 	# Go around an object, if you see it
 	if not sensor.is_pressed:
 		send(30)
-		time.sleep(5)
+		time.sleep(8)
         
 	# OpenCV Stuff
 	size = 0
@@ -133,7 +133,6 @@ while True:
 	time.sleep(speedLimit)
     
 # And The Final Dance
-send(0)
 send(20)
 
 # After that, please destroy the windows and release the cap, because I won't need them anymore...
