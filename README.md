@@ -1,5 +1,5 @@
 # Everything I use
-Don't make a difference between "Pig" and "Piglet"
+Don't make a difference between "Pig" and "Piglet",
 It's just me
 
 # The Communication Diagram (TFWRS for short)
