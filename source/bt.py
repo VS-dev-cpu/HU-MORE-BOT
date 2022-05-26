@@ -43,3 +43,5 @@ class BT():
 
     def start(self):
         self.send(self.mac_rooster, "go")
+        self.send(self.mac_pigZ, "go")
+        self.send(self.mac_pigM, "go")
