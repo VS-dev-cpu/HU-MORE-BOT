@@ -17,7 +17,7 @@ sudo pip3 install opencv-contrib-python
 sudo apt install bluetooth bluez libbluetooth-dev
 sudo python3 -m pip install pybluez
 
-## Write 'python3 ~\pystart.py &' to '~\.bashrc'
+## Write 'python3 ~/pystart.py &' to '~/.bashrc'
 sudo nano ~/.bashrc
 
 ## Stop ttyS0 service
