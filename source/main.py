@@ -1,54 +1,37 @@
 # Konnichiwa!
 
-import numpy as np
-
-# ---------- CONFIGURATION ----------
-
-# Only for PigS (server/host)
-is_server = False
-
-# The Searching's Duration
-duration = 60
-
-# Limit Speed, To Avoid Message-Overflow
-speedLimit = 0.05
-
-# Acorn Settings
-size = 0
-minSize = 150
-
-low = np.array([161, 155, 84])
-high = np.array([179, 255, 255])
-
-# Image Settings
-IMAGE_FLIP_VERTICALLY = False
-IMAGE_FLIP_HORIZONTALLY = False
-
-IMAGE_RESIZE = True
-W = 320
-H = 240
-
-# Only for Debugging!
-debugging = False
-
-# ---------- NOITARUGIFNOC ----------
-
-# Importing the libs
 from datetime import datetime
 import calendar
 import time
 
 import os
 
-from gpiozero import Button
-
 import cv2
+import numpy as np
 
 import bt
 
-# Setup for like... everything... I guess...
+# ---------- CONFIGURATION ----------
+is_server = False	# Only for PigS
+duration = 60	# The Searching's Duration
+speedLimit = 0.05	# Limit the code's speed
 
-# Just to know, if it already printed CAMFAULT
+size = 0	# The Acorn's Size
+minSize = 150	# The Acorn's min size
+
+low = np.array([161, 155, 84])	# Low Color HSV
+high = np.array([179, 255, 255])	# High Color HSV
+
+IMAGE_FLIP_VERTICALLY = False	# Flip the image VERTICALLY
+IMAGE_FLIP_HORIZONTALLY = False	# Flip the image HORIZONTALLY
+IMAGE_RESIZE = True	# Resize the image
+W = 320	# The resized image's size
+H = 240	
+
+debugging = False	# Debugging the code
+
+# ---------- NOITARUGIFNOC ----------
+
 panic = False
 
 def unix():
@@ -57,10 +40,6 @@ def unix():
 
 def send(data):
     os.system("echo '" + str(data) + "\\n' >> /dev/ttyS0")
-
-if is_server:
-	button = Button(26)
-sensor = Button(19)
 
 cap = cv2.VideoCapture(-1)
 
@@ -76,7 +55,11 @@ H = cap.get(4)
 
 bt = bt.BT()
 
+
 if is_server:
+	from gpiozero import Button
+	button = Button(26)
+	
 	while (1):
 		if not button.is_pressed:
 			break
@@ -85,21 +68,13 @@ else:
 	bt.sync()
 	
 start = unix()
-send(10)
-time.sleep(6)
+send(1)
 
 while True:
-	# Read image from the camera
 	ret, frame = cap.read()
 		
-	# Exit in case of overtime
 	if (unix() - start > duration):
 		break;
-		
-	# Go around an object, if you see it
-	if sensor.is_pressed:
-		send(30)
-		time.sleep(8)
         
 	# OpenCV Stuff
 	size = 0
@@ -132,15 +107,12 @@ while True:
 	key = cv2.waitKey(1)
 	if (size > minSize or key == 27):
 		break
-	else:
-		send(3)
+		
 	time.sleep(speedLimit)
     
 # And The Final Dance
-send(20)
+send(2)
 
-# After that, please destroy the windows and release the cap, because I won't need them anymore...
-# And also quit from the program, because it uses quite a lot memory...
 cap.release()
 cv2.destroyAllWindows()
 
