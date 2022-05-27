@@ -6,7 +6,7 @@ Adafruit_DCMotor *right_m = AFMS.getMotor(2);
 
 int speed_a = 100;
 int speed_b = 100;
-int turn = 500;
+int turn = 800;
 
 int sensor = 12;
 
@@ -52,7 +52,47 @@ void brake()
   right_m->run(RELEASE);
 }
 
+void house()
+{
+  forward(1000);
+  right(turn);
+  forward(1000);
+  right(turn);
+  forward(1000);
+  left(turn);
+}
+
+void dance(int a)
+{
+  for (int i = 0; i < a; i++)
+  {
+    right(500);
+    left(500);
+    forward(500);
+    backward(500);
+
+    left(500);
+    right(500);
+    backward(500);
+    forward(500);
+
+  }
+  brake();
+}
+
+void avoid()
+{
+  left(turn);
+  forward(1000);
+  right(turn);
+  forward(1000);
+  right(turn);
+  forward(1000);
+  left(turn);
+}
+
 void setup() {
+  Serial.begin(9600);
   AFMS.begin();
   pinMode(sensor, INPUT);
   brake();
@@ -64,46 +104,33 @@ void loop() {
   switch (Serial.parseInt())
   {
     case 1:
-       state = 1;
-       break;
-      
-    case 2:
-      state = 2;
-      
-    default:
-       break;
-  }
-  
-  switch(state)
-  {
-    case 1:
       forward(0);
-      if (digitalRead(sensor))
-      {
-        left(turn);
-        forward(1000);
-        right(turn);
-        forward(1000);
-        right(turn);
-        forward(1000);
-        left(turn);
-      }
       break;
-      
+
     case 2:
-      for (int i = 0; i < 5; i++)
-      {
-        right(500);
-        left(500);
-        forward(500);
-        backward(500);
-        
-        left(500);
-        right(500);
-        backward(500);
-        forward(500);
-      }
+      backward(0);
       break;
+
+    case 3:
+      right(0);
+      break;
+
+    case 4:
+      left(0);
+      break;
+
+    case 10:
+      house();
+      break;
+
+    case 20:
+      avoid();
+      break;
+
+    case 30:
+      dance(5);
+      break;
+
     default:
       break;
   }
