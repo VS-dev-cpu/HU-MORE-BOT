@@ -60,25 +60,19 @@ bt = bt.BT()
 if is_server:
 	from gpiozero import Button
 	button = Button(26)
-	sensor = Button(19)
 	
 	while (1):
 		if not button.is_pressed:
 			break
 	bt.start()
 else:
-	sensor = Button(18)
 	bt.sync()
 	
 start = unix()
-send(10)
+send(1)
 
 while True:
 	ret, frame = cap.read()
-	
-	if sensor.is_pressed:
-		send(20)
-		time.sleep(6)
         
 	# OpenCV Stuff
 	size = 0
@@ -113,7 +107,7 @@ while True:
 	time.sleep(speedLimit)
     
 # And The Final Dance
-send(30)
+send(2)
 
 cap.release()
 cv2.destroyAllWindows()
