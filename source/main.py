@@ -12,7 +12,7 @@ import numpy as np
 import bt
 
 # ---------- CONFIGURATION ----------
-is_server = False	# Only for PigS
+is_server = True	# Only for PigS
 duration = 60	# The Searching's Duration
 speedLimit = 0.05	# Limit the code's speed
 
@@ -71,13 +71,14 @@ else:
 	bt.sync()
 	
 start = unix()
-send(1)
+send(10)
 
 while True:
 	ret, frame = cap.read()
-		
-	if (unix() - start > duration):
-		break;
+	
+	if sensor.is_pressed:
+		send(20)
+		time.sleep(6)
         
 	# OpenCV Stuff
 	size = 0
@@ -103,13 +104,16 @@ while True:
 	
 	# The EXIT stuff is happening here
 	key = cv2.waitKey(1)
-	if (size > minSize or key == 27):
+	if (key == 27):
+		exit()
+		
+	if (size > minSize or unix() - start > duration):
 		break
 		
 	time.sleep(speedLimit)
     
 # And The Final Dance
-send(2)
+send(30)
 
 cap.release()
 cv2.destroyAllWindows()
