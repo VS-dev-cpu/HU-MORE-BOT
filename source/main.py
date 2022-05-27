@@ -32,8 +32,6 @@ debugging = False	# Debugging the code
 
 # ---------- NOITARUGIFNOC ----------
 
-panic = False
-
 def unix():
 	d = datetime.utcnow()
 	return calendar.timegm(d.utctimetuple())
@@ -47,7 +45,11 @@ if (IMAGE_RESIZE):
     cap.set(3, int(W))
     cap.set(4, int(H))
 	
-if (IMAGE_RESIZE and (W != cap.get(3) or H != cap.get(4))):
+ret, _ = cap.read()
+if not ret:
+	print("CAMFAULT: CAN'T READ FROM THE CAMERA!")
+	
+if (ret and IMAGE_RESIZE and (W != cap.get(3) or H != cap.get(4))):
 	print("CAMFAULT: CAN'T RESIZE IMAGE!")
 
 W = cap.get(3)
@@ -93,11 +95,6 @@ while True:
 			(x, y, w, h) = cv2.boundingRect(cnt)
 			size = int((w + h) / 2)
 			break
-			
-	else:
-		if not panic:
-			print("CAMFAULT: CAN'T READ FROM THE CAMERA!")
-			panic = True
     
 	if debugging:
 		cv2.imshow("frame", frame)
