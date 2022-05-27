@@ -10,15 +10,15 @@ It's just me
 
 # How To Install
 
+## Update pip
+pip3 install --upgrade pip
+
 ## Install opencv
 sudo pip3 install opencv-contrib-python
 
 ## Install bluetooth
 sudo apt install bluetooth bluez libbluetooth-dev
 sudo python3 -m pip install pybluez
-
-## Write 'python3 ~/pystart.py &' to '~/.bashrc'
-sudo nano ~/.bashrc
 
 ## Stop ttyS0 service
 sudo systemctl stop serial-getty@ttyS0.service
