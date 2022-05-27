@@ -60,12 +60,14 @@ bt = bt.BT()
 if is_server:
 	from gpiozero import Button
 	button = Button(26)
+	sensor = Button(19)
 	
 	while (1):
 		if not button.is_pressed:
 			break
 	bt.start()
 else:
+	sensor = Button(18)
 	bt.sync()
 	
 start = unix()
