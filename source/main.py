@@ -93,8 +93,6 @@ while True:
 	
 # Finish Up
 send(2)
-time.sleep(4)
-send(2)
 
 cap.release()
 cv2.destroyAllWindows()
