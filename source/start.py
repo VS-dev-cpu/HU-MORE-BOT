@@ -1,7 +1,7 @@
 import os
 import time
 import bt
-from gpiozero import button
+from gpiozero import Button
 
 def send(data):
     os.system("echo '" + str(data) + "\\n' >> /dev/ttyS0")
@@ -9,13 +9,14 @@ def send(data):
 bt = bt.BT()
 
 b = Button(26)
-
 while (1):
         if not b.is_pressed:
                 break
 
-#time.sleep(0)
-
+print("Starting...")
 bt.start()
 
+time.sleep(8)
+
+print("Done")
 send(1)
