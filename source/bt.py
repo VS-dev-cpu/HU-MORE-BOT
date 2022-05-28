@@ -8,7 +8,7 @@ class BT():
         
         self.mac_rooster = "DC:A6:32:6B:3A:AB"
         self.mac_pigS = "B8:27:EB:48:52:95"
-        self.mac_pigZ = ""
+        self.mac_pigZ = "DC:A6:32:6E:92:A5"
         self.mac_pigM = "B8:27:EB:10:0D:19"
         
     def receive(self):
