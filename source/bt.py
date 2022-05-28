@@ -6,8 +6,8 @@ class BT():
     def __init__(self):
         os.system("bluetoothctl discoverable on")
         
-        self.mac_rooster = "B8:27:EB:48:52:95"
-        self.mac_pigS = "DC:A6:32:6B:3A:AB"
+        self.mac_rooster = "DC:A6:32:6B:3A:AB"
+        self.mac_pigS = "B8:27:EB:48:52:95"
         self.mac_pigZ = ""
         self.mac_pigM = "B8:27:EB:10:0D:19"
         
