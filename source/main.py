@@ -12,7 +12,6 @@ import numpy as np
 import bt
 
 # ---------- CONFIGURATION ----------
-is_server = True	# Only for PigS
 duration = 60	# The Searching's Duration
 speedLimit = 0.05	# Limit the code's speed
 
@@ -57,16 +56,7 @@ H = cap.get(4)
 
 bt = bt.BT()
 
-if is_server:
-	from gpiozero import Button
-	button = Button(26)
-	
-	while (1):
-		if not button.is_pressed:
-			break
-	bt.start()
-else:
-	bt.sync()
+bt.sync()
 	
 start = unix()
 send(1)
