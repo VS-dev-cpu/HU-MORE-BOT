@@ -1,5 +1,6 @@
 # Konnichiwa!
 
+# Include the nuts
 from datetime import datetime
 import calendar
 import time
@@ -15,22 +16,18 @@ import bt
 duration = 60	# The Searching's Duration
 speedLimit = 0.05	# Limit the code's speed
 
-size = 0	# The Acorn's Size
 minSize = 150	# The Acorn's min size
-
 low = np.array([161, 155, 84])	# Low Color HSV
 high = np.array([179, 255, 255])	# High Color HSV
 
 IMAGE_FLIP_VERTICALLY = False	# Flip the image VERTICALLY
 IMAGE_FLIP_HORIZONTALLY = False	# Flip the image HORIZONTALLY
-IMAGE_RESIZE = True	# Resize the image
 W = 320	# The resized image's size
 H = 240	
 
-debugging = False	# Debugging the code
-
 # ---------- NOITARUGIFNOC ----------
 
+# Functions
 def unix():
 	d = datetime.utcnow()
 	return calendar.timegm(d.utctimetuple())
@@ -38,7 +35,10 @@ def unix():
 def send(data):
     os.system("echo '" + str(data) + "\\n' >> /dev/ttyS0")
 
+# Init
 cap = cv2.VideoCapture(-1)
+
+size = 0
 
 if (IMAGE_RESIZE):
     cap.set(3, int(W))
@@ -49,18 +49,20 @@ if not ret:
 	print("CAMFAULT: CAN'T READ FROM THE CAMERA!")
 	
 if (ret and IMAGE_RESIZE and (W != cap.get(3) or H != cap.get(4))):
-	print("CAMFAULT: CAN'T RESIZE IMAGE!")
+	minSize = minSize * (cap.get(3) / W)
 
 W = cap.get(3)
 H = cap.get(4)
 
 bt = bt.BT()
 
+# The Magic BT Sync Stuff
 bt.sync()
-	
+
 start = unix()
 send(1)
 
+# Main Loop
 while True:
 	ret, frame = cap.read()
         
@@ -82,21 +84,16 @@ while True:
 			(x, y, w, h) = cv2.boundingRect(cnt)
 			size = int((w + h) / 2)
 			break
-    
-	if debugging:
-		cv2.imshow("frame", frame)
 	
 	# The EXIT stuff is happening here
-	key = cv2.waitKey(1)
-	if (key == 27):
-		exit()
-		
+	cv2.waitKey(1)
+
 	if (size > minSize or unix() - start > duration):
 		break
-		
-	time.sleep(speedLimit)
-    
-# And The Final Dance
+	
+# Finish Up
+send(2)
+time.sleep(4)
 send(2)
 
 cap.release()
