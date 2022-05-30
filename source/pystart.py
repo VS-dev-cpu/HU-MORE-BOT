@@ -1,3 +1,5 @@
+# The Auto-Start Code For Every Robots
+
 # echo "python3 ~/pystart.py &" >> ~/.bashrc
 
 import os
