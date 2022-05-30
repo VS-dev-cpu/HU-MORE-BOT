@@ -6,10 +6,10 @@ class BT():
     def __init__(self):
         os.system("bluetoothctl discoverable on")
         
-        self.mac_rooster = "DC:A6:32:6B:3A:AB"
-        self.mac_pigS = "B8:27:EB:48:52:95"
-        self.mac_pigZ = "DC:A6:32:6E:92:A5"
-        self.mac_pigM = "B8:27:EB:10:0D:19"
+        self.mac_rooster = "B8:27:EB:48:52:95"  #Final (RPi0)
+        self.mac_pigS = "DC:A6:32:6B:3A:AB" #Final (RPi4) [SERVER]
+        self.mac_pigZ = "DC:A6:32:6E:92:A5" #Final (RPi4)
+        self.mac_pigM = "B8:27:EB:10:0D:19" #Final (RPi3)
         
     def receive(self):
         server_sock=bluetooth.BluetoothSocket( bluetooth.RFCOMM )
