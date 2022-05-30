@@ -1,6 +1,3 @@
-# Konnichiwa!
-
-# Include the nuts
 from datetime import datetime
 import calendar
 import time
@@ -11,6 +8,8 @@ import cv2
 import numpy as np
 
 import bt
+import socket
+from gpiozero import Button
 
 # ---------- CONFIGURATION ----------
 duration = 60	# The Searching's Duration
@@ -22,6 +21,7 @@ high = np.array([179, 255, 255])	# High Color HSV
 
 IMAGE_FLIP_VERTICALLY = False	# Flip the image VERTICALLY
 IMAGE_FLIP_HORIZONTALLY = False	# Flip the image HORIZONTALLY
+IMAGE_RESIZE = True
 W = 320	# The resized image's size
 H = 240	
 
@@ -57,7 +57,13 @@ H = cap.get(4)
 bt = bt.BT()
 
 # The Magic BT Sync Stuff
-bt.sync()
+if socket.gethostname() == "pigS":
+	b = Button(26)
+	while (b.is_pressed):
+		pass
+	bt.start()
+else:
+	bt.sync()
 
 start = unix()
 send(1)
@@ -96,5 +102,3 @@ send(2)
 
 cap.release()
 cv2.destroyAllWindows()
-
-# Oyasumi!
