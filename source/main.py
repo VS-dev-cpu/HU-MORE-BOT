@@ -25,9 +25,6 @@ high = np.array([179, 255, 255])        # High Color HSV
 
 IMAGE_FLIP_VERTICALLY = True	# Flip the image VERTICALLY
 IMAGE_FLIP_HORIZONTALLY = True	# Flip the image HORIZONTALLY
-IMAGE_RESIZE = True
-W = 320	# The resized image's size
-H = 240	
 
 # ---------- NOITARUGIFNOC ----------
 
@@ -41,10 +38,8 @@ def send(data):
 
 # Init
 cap = cv2.VideoCapture(-1)
-
-if (IMAGE_RESIZE):
-    cap.set(3, int(320))
-    cap.set(4, int(240))
+cap.set(3, int(320))
+cap.set(4, int(240))
 	
 ret, _ = cap.read()
 if not ret:
