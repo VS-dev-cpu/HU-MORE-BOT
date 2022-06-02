@@ -14,7 +14,7 @@ import socket
 from gpiozero import Button
 
 # ---------- CONFIGURATION ----------
-duration = 60
+duration = 50
 speedLimit = 0
 
 minW = 10
