@@ -17,7 +17,9 @@ from gpiozero import Button
 duration = 60	# The Searching's Duration
 speedLimit = 0.05	# Limit the code's speed
 
-minSize = 150	# The Acorn's min size
+minW = 100	# The Acorn's Min Width
+minH = 100	# The Acorn's min Heigth
+
 low = np.array([160, 100, 84])  # Low Color HSV
 high = np.array([179, 255, 255])        # High Color HSV
 
@@ -40,18 +42,13 @@ def send(data):
 # Init
 cap = cv2.VideoCapture(-1)
 
-size = 0
-
 if (IMAGE_RESIZE):
-    cap.set(3, int(W))
-    cap.set(4, int(H))
+    cap.set(3, int(320))
+    cap.set(4, int(240))
 	
 ret, _ = cap.read()
 if not ret:
 	print("CAMFAULT: CAN'T READ FROM THE CAMERA!")
-	
-if (ret and IMAGE_RESIZE and (W != cap.get(3) or H != cap.get(4))):
-	minSize = minSize * (cap.get(3) / W)
 
 W = cap.get(3)
 H = cap.get(4)
@@ -75,7 +72,8 @@ while True:
 	ret, frame = cap.read()
         
 	# OpenCV Stuff
-	size = 0
+	width = 0
+	heigth = 0
 	if (ret):
 		if (IMAGE_FLIP_VERTICALLY):
 			frame = cv2.flip(frame, 0)
@@ -90,13 +88,14 @@ while True:
 		# Getting The Acorn's size
 		for cnt in contours:
 			(x, y, w, h) = cv2.boundingRect(cnt)
-			size = int((w + h) / 2)
+			width = w
+			heigth = h
 			break
 	
 	# The EXIT stuff is happening here
 	cv2.waitKey(1)
 
-	if (size > minSize or unix() - start > duration):
+	if ((width > minW and heigth > minH) or unix() - start > duration):
 		break
 	
 # Finish Up
