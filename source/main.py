@@ -18,11 +18,11 @@ duration = 60	# The Searching's Duration
 speedLimit = 0.05	# Limit the code's speed
 
 minSize = 150	# The Acorn's min size
-low = np.array([161, 155, 84])	# Low Color HSV
-high = np.array([179, 255, 255])	# High Color HSV
+low = np.array([160, 100, 84])  # Low Color HSV
+high = np.array([179, 255, 255])        # High Color HSV
 
-IMAGE_FLIP_VERTICALLY = False	# Flip the image VERTICALLY
-IMAGE_FLIP_HORIZONTALLY = False	# Flip the image HORIZONTALLY
+IMAGE_FLIP_VERTICALLY = True	# Flip the image VERTICALLY
+IMAGE_FLIP_HORIZONTALLY = True	# Flip the image HORIZONTALLY
 IMAGE_RESIZE = True
 W = 320	# The resized image's size
 H = 240	
