@@ -94,6 +94,8 @@ while True:
 	if ((width > maxW and heigth > maxH) or unix() - start > duration):
 		break
 	
+while(unix() - start > 0):
+	pass
 # Finish Up
 send(1)
 
