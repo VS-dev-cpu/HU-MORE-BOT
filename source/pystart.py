@@ -1,6 +1,6 @@
 # The Auto-Start Code For Every Robots
 
-# echo "python3 ~/pystart.py &" >> ~/.bashrc
+# echo "python3 ~/HU-MORE-BOT/source/pystart.py &" >> ~/.bashrc
 
 import os
 import time
