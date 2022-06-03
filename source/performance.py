@@ -1,5 +1,4 @@
 # The Code For The Pigs
-
 from datetime import datetime
 import calendar
 import time
@@ -22,7 +21,6 @@ def unix():
 	return calendar.timegm(d.utctimetuple())
 
 ser = serial.Serial('/dev/ttyACM0', 9600)
-
 def send(data):
 	ser.write(bytes(str(data), 'utf-8') + b'\n')
 
@@ -33,7 +31,6 @@ if hostname == "pigS":
 	
 	minW = 20
 	minH = 20
-
 	maxW = 100
 	maxH = 100
 	
@@ -45,7 +42,6 @@ else if hostname == "pigZ":
 	
 	minW = 20
 	minH = 20
-
 	maxW = 150
 	maxH = 150
 
@@ -56,7 +52,6 @@ else if hostname == "pigM":
 	
 	minW = 20
 	minH = 20
-
 	maxW = 100
 	maxH = 100
 	
