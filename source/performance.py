@@ -66,6 +66,10 @@ else:
 
 start = unix()
 
+send(1000)
+time.sleep(5)
+sleep(1000)
+
 # Main Loop
 while True:
 	ret, frame = cap.read()
@@ -97,7 +101,7 @@ while True:
 while(unix() - start > 0):
 	pass
 # Finish Up
-send(1)
+send(2000)
 
 cap.release()
 cv2.destroyAllWindows()
