@@ -5,9 +5,8 @@ Adafruit_DCMotor *m_right = AFMS.getMotor(1);
 
 int ms = 100;
 
-void init(int max_speed)
+void init()
 {
-  ms = max_speed;
   AFMS.begin();
 }
 
