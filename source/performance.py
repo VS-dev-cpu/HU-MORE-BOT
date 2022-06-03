@@ -15,7 +15,6 @@ from gpiozero import Button
 
 # ---------- CONFIGURATION ----------
 duration = 50
-speedLimit = 0
 
 minW = 20
 minH = 20
