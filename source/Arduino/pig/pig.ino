@@ -13,74 +13,74 @@ void dance()
     // Dance Phase 1
 
     //Left 1200
-    go(0, 100);
+    run(0, 100);
     delay(1200);
-    go(0, 0);
+    run(0, 0);
 
     delay(400);
 
     //Right 1200
-    go(100, 0);
+    run(100, 0);
     delay(1200);
-    go(0, 0);
+    run(0, 0);
 
     delay(400);
 
     //Left 1200
-    go(0, 100);
+    run(0, 100);
     delay(1200);
-    go(0, 0);
+    run(0, 0);
 
     delay(400);
 
     //Right 1200
-    go(100, 0);
+    run(100, 0);
     delay(1200);
-    go(0, 0);
+    run(0, 0);
 
     delay(400);
 
     //Left 1600
-    go(0, 100);
+    run(0, 100);
     delay(1600);
-    go(0, 0);
+    run(0, 0);
 
     delay(1600);
 
     // Dance Phase 2
 
     //Right 1200
-    go(100, 0);
+    run(100, 0);
     delay(1200);
-    go(0, 0);
+    run(0, 0);
 
     delay(400);
 
     //Left 1200
-    go(0, 100);
+    run(0, 100);
     delay(1200);
-    go(0, 0);
+    run(0, 0);
 
     delay(400);
 
     //Right 1200
-    go(100, 0);
+    run(100, 0);
     delay(1200);
-    go(0, 0);
+    run(0, 0);
 
     delay(400);
 
     //Left 1200
-    go(0, 100);
+    run(0, 100);
     delay(1200);
-    go(0, 0);
+    run(0, 0);
 
     delay(400);
 
     //Right 1600
-    go(100, 0);
+    run(100, 0);
     delay(1600);
-    go(0, 0);
+    run(0, 0);
 
     delay(1600);
   }
@@ -89,32 +89,35 @@ void dance()
 void house()
 {
   int turn = 800;
-  
-  go(50, 50);
+
+  run(50, 50);
   delay(1000);
-  go(50, 0);
+  run(50, 0);
   delay(turn);
 
-  go(50, 50);
+  run(50, 50);
   delay(1000);
-  go(50, 0);
+  run(50, 0);
   delay(turn);
 
-  go(50, 50);
+  run(50, 50);
   delay(1000);
-  go(0, 50);
+  run(0, 50);
   delay(turn);
 
-  go(0, 0);
+  run(0, 0);
 }
 
 void setup()
 {
   Serial.begin(9600);
-  init();
-  go(0, 0);
+  driver_setup();
+  run(0, 0);
 }
 
+int l, r;
+int state = -1;
+bool is_housed = true;
 int x = 160;
 
 void loop()
@@ -122,7 +125,7 @@ void loop()
   if (Serial.available() > 0)
   {
     int msg = Serial.parseInt();
-    
+
     if (msg == 1000)
     {
       if (is_housed)
@@ -141,20 +144,21 @@ void loop()
       x = map(msg, 0, 320, 100, -100);
     }
   }
-  
+
   switch (state)
   {
     case 0:
-      int l = map(x, -100, 100, 0, 60);
-    int r = map(x, -100, 100, 60, 0);
-    run(l, r);
+      l = map(x, -100, 100, 0, 60);
+      r = map(x, -100, 100, 60, 0);
+      run(l, r);
       break;
-      
+
     case 1:
       dance();
       state = 2;
       break;
-      
+
     default:
       break;
+  }
 }
