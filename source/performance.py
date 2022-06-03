@@ -17,8 +17,8 @@ from gpiozero import Button
 duration = 50
 speedLimit = 0
 
-minW = 10
-minH = 10
+minW = 5
+minH = 5
 
 maxW = 100
 maxH = 100
@@ -86,8 +86,7 @@ while True:
 			width = w
 			heigth = h
 			if width > minW and heigth > minH:
-				position = x + y * 1000;
-				send(position)
+				send(x)
 			break
 	
 	cv2.waitKey(1)
