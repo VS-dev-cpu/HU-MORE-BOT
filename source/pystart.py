@@ -7,5 +7,5 @@ import time
 
 time.sleep(5)
 
-os.system("python3 ./performance.py &")
-#os.system("python3 ./rooster.py &")
+os.system("python3 ~/HU-MORE-BOT/source/performance.py &")
+#os.system("python3 ~/HU-MORE-BOT/source/rooster.py &")
