@@ -1,12 +1,8 @@
-import os
-import time
 import bt
+import serial
 
 bt = bt.BT()
-
-def send(data):
-    os.system("echo '" + str(data) + "\\n' >> /dev/ttyS0")
+ser = serial.Serial('/dev/ttyS0', 9600)
     
 bt.sync()
-time.sleep(8)
-send(1)
+ser.write(b'1\n')
