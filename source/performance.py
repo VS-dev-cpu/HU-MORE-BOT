@@ -37,7 +37,7 @@ if hostname == "pigS":
 	IMAGE_FLIP = True
 	b = Button(26)
 	
-else if hostname == "pigZ":
+elif hostname == "pigZ":
 	color = "blue"
 	
 	minW = 20
@@ -47,7 +47,7 @@ else if hostname == "pigZ":
 
 	IMAGE_FLIP = True
 	
-else if hostname == "pigM":
+elif hostname == "pigM":
 	color = "green"
 	
 	minW = 20
@@ -65,10 +65,10 @@ else:
 if color == "red":
 	low = np.array([160, 80, 80])
 	high = np.array([179, 255, 255])
-else if color == "green":
+elif color == "green":
 	low = np.array([54, 85, 20])
 	high = np.array([98, 255, 255])
-else if color == "blue":
+elif color == "blue":
 	low = np.array([90, 140, 50])
 	high = np.array([134, 255, 255])
 else:
