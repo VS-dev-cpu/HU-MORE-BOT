@@ -3,9 +3,9 @@ AlphaBot r = AlphaBot();
 
 int ms = 300;
 
-void init(int max_speed)
+void init()
 {
-  ms = max_speed;
+  // dosomething
 }
 
 void run(int left, int right)
