@@ -4,7 +4,7 @@ from datetime import datetime
 import calendar
 import time
 
-import os
+import serial
 
 import cv2
 import numpy as np
@@ -17,8 +17,8 @@ from gpiozero import Button
 duration = 50
 speedLimit = 0
 
-minW = 5
-minH = 5
+minW = 20
+minH = 20
 
 maxW = 100
 maxH = 100
@@ -35,9 +35,10 @@ def unix():
 	d = datetime.utcnow()
 	return calendar.timegm(d.utctimetuple())
 
+ser = serial.Serial('/dev/ttyACM0', 9600)
+
 def send(data):
-	port = '/dev/ttyS0'
-    os.system("echo '" + str(data) + "\\n' >> " + port)
+	ser.write(bytes(str(data), 'utf-8') + b'\n')
 
 # OpenCV Stuff
 cap = cv2.VideoCapture(-1)
@@ -48,6 +49,9 @@ cap.set(4, int(240))
 W = cap.get(3)
 H = cap.get(4)
 
+width = 0
+heigth = 0
+
 ret, _ = cap.read()
 if not ret:
 	print("CAMFAULT")
@@ -56,19 +60,19 @@ if not ret:
 # The Bluetooth Magic
 bt = bt.BT()
 
-if socket.gethostname() == "pigS":
-	b = Button(26)
-	while (b.is_pressed):
-		pass
-	bt.start()
-else:
-	bt.sync()
-
+#if socket.gethostname() == "pigS":
+#	b = Button(26)
+#	while (b.is_pressed):
+#		pass
+#	bt.start()
+#else:
+#	bt.sync()
+	
 start = unix()
 
 send(1000)
-time.sleep(5)
-sleep(1000)
+time.sleep(1)
+send(1000)
 
 # Main Loop
 while True:
