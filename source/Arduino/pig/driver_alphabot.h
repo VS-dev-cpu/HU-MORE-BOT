@@ -1,16 +1,16 @@
 #include "AlphaBot.h"
-AlphaBot r = AlphaBot();
+AlphaBot robot = AlphaBot();
 
-int ms = 300;
+int max_speed = 300;
 
-void init()
+void driver_setup()
 {
   // dosomething
 }
 
 void run(int left, int right)
 {
-  int l = map(left, -100, 100, -max_speed, max_speed);
-  int r = map(right, -100, 100, -max_speed, max_speed)
-  r.MotorRun(l, r);
+  left = map(left, -100, 100, -max_speed, max_speed);
+  right = map(right, -100, 100, -max_speed, max_speed);
+  robot.MotorRun(left, right);
 }
