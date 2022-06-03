@@ -13,23 +13,10 @@ import bt
 import socket
 from gpiozero import Button
 
-# ---------- CONFIGURATION ----------
+# The Video's Duration Before Dance
 duration = 50
 
-minW = 20
-minH = 20
-
-maxW = 100
-maxH = 100
-
-low = np.array([160, 80, 80])
-high = np.array([179, 255, 255])
-
-IMAGE_FLIP_VERTICALLY = True
-IMAGE_FLIP_HORIZONTALLY = True
-# ---------- NOITARUGIFNOC ----------
-
-# Functions
+# Time & Serial Functions
 def unix():
 	d = datetime.utcnow()
 	return calendar.timegm(d.utctimetuple())
@@ -39,17 +26,64 @@ ser = serial.Serial('/dev/ttyACM0', 9600)
 def send(data):
 	ser.write(bytes(str(data), 'utf-8') + b'\n')
 
+# "PigSwitch"
+hostname = socket.gethostname()
+if hostname == "pigS":
+	color = "red"
+	
+	minW = 20
+	minH = 20
+
+	maxW = 100
+	maxH = 100
+	
+	IMAGE_FLIP = True
+	b = Button(26)
+	
+else if hostname == "pigZ":
+	color = "blue"
+	
+	minW = 20
+	minH = 20
+
+	maxW = 150
+	maxH = 150
+
+	IMAGE_FLIP = True
+	
+else if hostname == "pigM":
+	color = "green"
+	
+	minW = 20
+	minH = 20
+
+	maxW = 100
+	maxH = 100
+	
+	IMAGE_FLIP = False
+	
+else:
+	print("HOSTFAULT")
+	exit()
+	
+# The Color Switching Part
+if color == "red":
+	low = np.array([160, 80, 80])
+	high = np.array([179, 255, 255])
+else if color == "green":
+	low = np.array([54, 85, 20])
+	high = np.array([98, 255, 255])
+else if color == "blue":
+	low = np.array([90, 140, 50])
+	high = np.array([134, 255, 255])
+else:
+	print("COLORFAULT")
+	exit()
+	
 # OpenCV Stuff
 cap = cv2.VideoCapture(-1)
-
 cap.set(3, int(320))
 cap.set(4, int(240))
-
-W = cap.get(3)
-H = cap.get(4)
-
-width = 0
-heigth = 0
 
 ret, _ = cap.read()
 if not ret:
@@ -58,17 +92,15 @@ if not ret:
 
 # The Bluetooth Magic
 bt = bt.BT()
-
-#if socket.gethostname() == "pigS":
-#	b = Button(26)
-#	while (b.is_pressed):
-#		pass
-#	bt.start()
-#else:
-#	bt.sync()
+if hostname == "pigS":
+	while (b.is_pressed):
+		pass
+	bt.start()
+else:
+	bt.sync()
 	
+# The Start Sequence
 start = unix()
-
 send(1000)
 time.sleep(1)
 send(1000)
@@ -76,11 +108,13 @@ send(1000)
 # Main Loop
 while True:
 	ret, frame = cap.read()
+	
+	width = 0
+	heigth = 0
         
 	if (ret):
-		if (IMAGE_FLIP_VERTICALLY):
+		if (IMAGE_FLIP):
 			frame = cv2.flip(frame, 0)
-		if (IMAGE_FLIP_HORIZONTALLY):
 			frame = cv2.flip(frame, 1)
 		
 		hsv_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
@@ -103,6 +137,7 @@ while True:
 	
 while(unix() - start > 0):
 	pass
+
 # Finish Up
 send(2000)
 
